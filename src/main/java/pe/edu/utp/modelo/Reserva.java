@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -12,10 +15,10 @@ import java.util.Scanner;
 public class Reserva {
     private Cliente cliente;
     private Habitacion habitacion;
-    private Date fechaInicio;
-    private Date fechaFin;
+    private LocalDateTime fechaInicio;
+    private LocalDateTime fechaFin;
 
-    public Reserva(Cliente cliente, Habitacion habitacion, Date fechaInicio, Date fechaFin) {
+    public Reserva(Cliente cliente, Habitacion habitacion, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
         this.cliente = cliente;
         this.habitacion = habitacion;
         this.fechaInicio = fechaInicio;
@@ -25,29 +28,33 @@ public class Reserva {
     public static Reserva crearReserva(Cliente cliente, Habitacion habitacion) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Ingrese la fecha de inicio de la reserva (en formato yyyy-mm-dd): ");
-        String fechaInicioStr = scanner.nextLine();
-        System.out.print("Ingrese la fecha de fin de la reserva (en formato yyyy-mm-dd): ");
-        String fechaFinStr = scanner.nextLine();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date fechaInicio = new Date();
-        Date fechaFin = new Date();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         try {
-            fechaInicio = formatter.parse(fechaInicioStr);
-            fechaFin = formatter.parse(fechaFinStr);
-            System.out.println("Se registro con la fecha");
-        } catch (ParseException e) {
-            System.out.println("Error parsing date: " + e.getMessage());
-        }
+            System.out.print("Ingrese la fecha y hora de inicio (yyyy-MM-dd HH:mm): ");
 
-        return new Reserva(cliente, habitacion, fechaInicio, fechaFin);
+            String inicioStr = scanner.nextLine();
+            ;
+
+            LocalDateTime inicio = LocalDateTime.parse(inicioStr, formatter);
+
+
+            System.out.print("Ingrese la fecha y hora de fin (yyyy-MM-dd HH:mm): ");
+            String finStr = scanner.nextLine();
+            LocalDateTime fin = LocalDateTime.parse(finStr, formatter);
+
+            return new Reserva(cliente, habitacion, inicio, fin);
+        } catch (DateTimeParseException e) {
+            ;
+            System.out.println("Formato de fecha incorrecto.");
+
+            return null;
+        }
     }
 
     public void confirmarReserva() {
-        System.out.println("Reserva confirmada para la habitación " + habitacion.getNumero());
+        System.out.println("Reserva confirmada desde " + this.fechaInicio + " hasta " + this.fechaFin +
+                " para la habitación " + habitacion.getNumero());
     }
 
     public void cancelarReserva() {

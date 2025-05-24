@@ -33,46 +33,54 @@ public class Main {
             System.out.println("2. Mostrar habitaciones disponibles");
             System.out.println("3. Liberar habitación (Empleado)");
             System.out.println("4. Ver información de empleados");
-            System.out.println("5. Salir");
+            System.out.println("5. Ver reservas activas");
+            System.out.println("6. Salir");
             System.out.print("Seleccione una opción: ");
+
             int opcion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
+            scanner.nextLine();
 
-            if (opcion == 1) {
-                // Crear cliente
-                Cliente cliente = Cliente.crearCliente();
-                hotel.registrarCliente(cliente);
-            } else if (opcion == 2) {
-                // Mostrar habitaciones disponibles
-                hotel.mostrarHabitacionesDisponibles();
-            } else if (opcion == 3) {
-                // Liberar habitación (empleado)
-                System.out.print("Ingrese el número de habitación a liberar: ");
-                String numeroHabitacion = scanner.nextLine();
-                Habitacion habitacionSeleccionada = null;
-                for (Habitacion habitacion : habitaciones) {
-                    if (habitacion.getNumero().equals(numeroHabitacion)) {
-                        habitacionSeleccionada = habitacion;
-                        break;
+            switch (opcion){
+                case 1:
+                    Cliente cliente = Cliente.crearCliente();
+                    hotel.registrarCliente(cliente);
+                    break;
+                case 2:
+                    hotel.mostrarHabitacionesDisponibles();
+                    break;
+                case 3:
+                    // Liberar habitación (empleado)
+                    System.out.print("Ingrese el número de habitación a liberar: ");
+                    String numeroHabitacion = scanner.nextLine();
+                    Habitacion habitacionSeleccionada = null;
+                    for (Habitacion habitacion : habitaciones) {
+                        if (habitacion.getNumero().equals(numeroHabitacion)) {
+                            habitacionSeleccionada = habitacion;
+                            break;
+                        }
                     }
-                }
 
-                if (habitacionSeleccionada != null) {
-                    emp1.liberarHabitacion(habitacionSeleccionada);
-                } else {
-                    System.out.println("La habitación no existe.");
-                }
-            } else if (opcion == 4) {
-                // Ver empleados
-                for (Empleado empleado : empleados) {
-                    empleado.mostrarInformacion();
-                }
-            } else if (opcion == 5) {
-                // Salir del programa
-                System.out.println("¡Gracias por usar el sistema de hotel!");
-                break;
-            } else {
-                System.out.println("Opción no válida. Intente nuevamente.");
+                    if (habitacionSeleccionada != null) {
+                        emp1.liberarHabitacion(habitacionSeleccionada);
+                    } else {
+                        System.out.println("La habitación no existe.");
+                    }
+                    break;
+                case 4:
+                    // Ver empleados
+                    for (Empleado empleado : empleados) {
+                        empleado.mostrarInformacion();
+                    }
+                    break;
+                case 5:
+                    hotel.verReservasActivas();
+                    break;
+                case 6:
+                    // Salir del programa
+                    System.out.println("¡Gracias por usar el sistema de hotel!");
+                    return;
+                default:
+                    System.out.println("Opción no válida. Intente nuevamente.");
             }
         }
     }
