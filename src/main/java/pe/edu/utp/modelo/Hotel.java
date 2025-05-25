@@ -38,13 +38,11 @@ public class Hotel {
     public void registrarCliente(Cliente cliente) {
         Scanner scanner = new Scanner(System.in);
 
-        // Mostrar habitaciones disponibles
         mostrarHabitacionesDisponibles();
 
         System.out.print("Ingrese el número de habitación que desea reservar: ");
         String numeroHabitacion = scanner.nextLine();
 
-        // Buscar habitación por número
         Habitacion habitacionSeleccionada = null;
         for (Habitacion habitacion : habitaciones) {
             if (habitacion.getNumero().equals(numeroHabitacion)) {
@@ -69,7 +67,6 @@ public class Hotel {
         }
     }
 
-    // Asignar un empleado
     public void asignarEmpleado(Empleado empleado) {
         empleados.add(empleado);
         System.out.println("Empleado registrado: " + empleado.nombre);

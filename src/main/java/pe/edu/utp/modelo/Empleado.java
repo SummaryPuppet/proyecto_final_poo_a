@@ -15,12 +15,10 @@ public class Empleado extends Persona {
         System.out.println("Trabajo: " + trabajo);
     }
 
-    // Ver las habitaciones disponibles
     public void verHabitacionesDisponibles(Hotel hotel) {
         hotel.mostrarHabitacionesDisponibles();
     }
 
-    // Liberar habitación
     public void liberarHabitacion(Habitacion habitacion) {
         habitacion.liberar();
     }

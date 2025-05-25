@@ -13,21 +13,17 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Crear habitaciones
         List<Habitacion> habitaciones = new ArrayList<>();
         habitaciones.add(new Habitacion("101", "Individual", 100.0));
         habitaciones.add(new Habitacion("102", "Doble", 150.0));
         habitaciones.add(new Habitacion("103", "Suite", 250.0));
 
-        // Crear empleados
         List<Empleado> empleados = new ArrayList<>();
         Empleado emp1 = new Empleado("Carlos Pérez", "11122333", "Recepcionista");
         empleados.add(emp1);
 
-        // Crear el hotel
         Hotel hotel = new Hotel("Hotel Paradise", habitaciones, empleados);
 
-        // Menú de interacción
         while (true) {
             System.out.println("\n1. Registrar un cliente");
             System.out.println("2. Mostrar habitaciones disponibles");
@@ -49,7 +45,6 @@ public class Main {
                     hotel.mostrarHabitacionesDisponibles();
                     break;
                 case 3:
-                    // Liberar habitación (empleado)
                     System.out.print("Ingrese el número de habitación a liberar: ");
                     String numeroHabitacion = scanner.nextLine();
                     Habitacion habitacionSeleccionada = null;
@@ -67,7 +62,6 @@ public class Main {
                     }
                     break;
                 case 4:
-                    // Ver empleados
                     for (Empleado empleado : empleados) {
                         empleado.mostrarInformacion();
                     }
@@ -76,7 +70,6 @@ public class Main {
                     hotel.verReservasActivas();
                     break;
                 case 6:
-                    // Salir del programa
                     System.out.println("¡Gracias por usar el sistema de hotel!");
                     return;
                 default:
